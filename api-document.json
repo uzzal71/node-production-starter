@@ -1,0 +1,322 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Node product starter api server.",
+    "version": "1.0.0",
+    "title": "Node product starter"
+  },
+  "host": {
+    "development": "localhost:3000",
+    "production": "64.227.166.39"
+  },
+  "tags": [
+    { "name": "Auth", "description": "User authentication" },
+    {
+      "name": "Verification",
+      "description": "verification user profile"
+    },
+    {
+      "name": "Profile",
+      "description": "User profile access"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/api/v1/auth/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Signup a new user",
+        "description": "Endpoint to singup a new user.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Signup request body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Signup successful" },
+          "400": { "description": "Bad request" }
+        }
+      }
+    },
+    "/api/v1/auth/signin": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login a user",
+        "description": "Endpoint to login a user.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Login request body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "default": "01319630372"
+                },
+                "password": {
+                  "type": "string",
+                  "default": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Login successful" },
+          "400": { "description": "Bad request" }
+        }
+      }
+    },
+    "/api/v1/verify/sent-otp": {
+      "post": {
+        "tags": ["Verification"],
+        "summary": "OTP sent a user",
+        "description": "Endpoint to sent OTP.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "OTP request body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "default": "phone or email address"
+                },
+                "type": {
+                  "type": "string",
+                  "default": "phone or email"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OTP Sent your phone or email" },
+          "400": { "description": "Bad request" }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/verify/otp-verification": {
+      "post": {
+        "tags": ["Verification"],
+        "summary": "OTP Verification",
+        "description": "Endpoint to otp verrification.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "OTOP verification request body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "default": "phone number or email address"
+                },
+                "type": {
+                  "type": "string",
+                  "default": "phone or email"
+                },
+                "otp": {
+                  "type": "string",
+                  "default": "292022"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OTP verification successful" },
+          "400": { "description": "Bad request" }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/profile/get-profile": {
+      "get": {
+        "tags": ["Profile"],
+        "summary": "Login a user",
+        "description": "Endpoint to login a user.",
+        "responses": {
+          "200": { "description": "Login successful" },
+          "400": { "description": "Bad request" }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/profile/update-profile": {
+      "post": {
+        "tags": ["Profile"],
+        "summary": "Login a user",
+        "description": "Endpoint to login a user.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Login request body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "default": "01319630372"
+                },
+                "password": {
+                  "type": "string",
+                  "default": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Login successful" },
+          "400": { "description": "Bad request" }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/profile/update-profile-image": {
+      "post": {
+        "tags": ["Profile"],
+        "summary": "Update profile picture",
+        "description": "Endpoint to update profile picture",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "profile_image",
+            "in": "formData",
+            "description": "Profile image file",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "201": { "description": "Profile picture update successfully" },
+          "400": { "description": "Bad request" }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/profile/remove-profile": {
+      "delete": {
+        "tags": ["Profile"],
+        "summary": "Login a user",
+        "description": "Endpoint to login a user.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Login request body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "default": "01319630372"
+                },
+                "password": {
+                  "type": "string",
+                  "default": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Login successful" },
+          "400": { "description": "Bad request" }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": ["Profile"],
+        "summary": "Logout a user",
+        "description": "Endpoint to logout a user.",
+        "parameters": [],
+        "responses": {
+          "200": { "description": "Logout successful" },
+          "400": { "description": "Bad request" }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "jwt_auth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT authorization header using the Bearer scheme."
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "default": "Jone Doe"
+        },
+        "email": {
+          "type": "string",
+          "default": "jonedoe@gmail.com"
+        },
+        "phone": {
+          "type": "string",
+          "default": "01319630372"
+        },
+        "password": {
+          "type": "string",
+          "default": "jonedoe"
+        }
+      }
+    }
+  }
+}
