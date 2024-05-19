@@ -1,15 +1,12 @@
-# node-production-starter
-
-Node Production Starter
-
-# Commands
+# Docker image build & compose up
 
 ```
-docker build -t node-app .
+docker compose -f compose.yml -f compose-dev.yml up -d --build=
 ```
 
+# Docker compose down
+
 ```
-docker compose -f compose.yml -f compose-dev.yml up -d --build
 docker compose -f compose.yml -f compose-dev.yml down -v
 ```
 
@@ -19,7 +16,7 @@ docker compose -f compose.yml -f compose-dev.yml down -v
 docker exec -it node-app bash
 ```
 
-# Log
+# Docker App Log
 
 ```
 docker logs node-app -f
