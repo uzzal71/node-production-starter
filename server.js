@@ -10,8 +10,8 @@ import routeConfiguration from "./src/routes";
 const port = process.env.PORT || 3000;
 
 // Define your development and production hosts
-const development = `${DEV_URL}`;
-const production = `${PROD_URL}`;
+const development = `${process.env.DEV_URL}`;
+const production = `${process.env.PROD_URL}`;
 
 // Determine the environment
 const environment = process.env.APP_ENV || "development";
@@ -26,13 +26,16 @@ if (environment === "development") {
 // Set up Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get("/api/v1", (req, res) => {
-  console.log("I am here");
+app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to the node production starter server",
+    message: "Welcome to node production starter server",
     version: "1.0.0",
-    author: "Uzzal Kumar Roy",
-    contact: {
+    api_url:
+      environment === "development"
+        ? `${process.env.DEV_URL}/api/v1`
+        : `${process.env.PROD_URL}/api/v1`,
+    author: {
+      name: "Uzzal Kumar Roy",
       phone: "+8801319630372 / +8801788134303",
       email: "uzzalroy.acm@gmail.com",
       website: "https://uzzaldev.com",
