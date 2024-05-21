@@ -1,4 +1,3 @@
-// import cluster from "cluster";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./api-document.json";
 import app from "./app";
