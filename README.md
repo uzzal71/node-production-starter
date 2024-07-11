@@ -1,7 +1,7 @@
 # Docker image build & compose up
 
 ```
-docker compose -f compose.yml -f compose-dev.yml up -d --build=
+docker compose -f compose.yml -f compose-dev.yml up -d --build
 ```
 
 # Docker compose down
